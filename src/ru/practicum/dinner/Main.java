@@ -25,6 +25,8 @@ public class Main {
                     break;
                 case "3":
                     return;
+                default:
+                    System.out.println("Такой команды нет!");
             }
         }
     }
@@ -51,6 +53,10 @@ public class Main {
 
         System.out.println("Введите количество наборов, которые нужно сгенерировать:");
         int numberOfCombos = scanner.nextInt();
+        if(numberOfCombos <= 0) {
+            System.out.println("Количество наборов должно быть неотрицательным!");
+            return;
+        }
         scanner.nextLine();
 
         System.out.println("Вводите типы блюда, разделяя символом переноса строки (enter). Для завершения ввода введите пустую строку");
@@ -66,6 +72,12 @@ public class Main {
         }
 
         for(int i=0; i < numberOfCombos; i++) {
+            for(String dishesType : comboDishTypeList) {
+                if (!dc.allDishes.containsKey(dishesType)) {
+                    System.out.println("Такой категории нет!");
+                    return;
+                }
+            }
             for(int j = 0; j<comboDishTypeList.size(); j ++) {
                 newRandomDishList.add(dc.getRandomDish(comboDishTypeList.get(j)));
             }
